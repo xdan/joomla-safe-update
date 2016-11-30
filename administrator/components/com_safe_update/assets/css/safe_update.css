@@ -1,0 +1,64 @@
+.diff {
+    width: 100%;
+}
+.diff td{
+    padding:0 0.667em;
+    vertical-align:top;
+    white-space:pre;
+    white-space:pre-wrap;
+    font-family:Consolas,'Courier New',Courier,monospace;
+    font-size:0.75em;
+    line-height:1.333;
+}
+.diff td{
+    width: 50%;
+}
+
+.diff span{
+    display:block;
+    min-height:1.333em;
+    margin-top:-1px;
+    padding:0 3px;
+}
+
+* html .diff span{
+    height:1.333em;
+}
+
+.diff span:first-child{
+    margin-top:0;
+}
+
+.diffUnmodified {
+    display: none;
+}
+.diffDeleted span{
+    border:1px solid rgb(255,192,192);
+    background:rgb(255,224,224);
+}
+
+.diffInserted span{
+    border:1px solid rgb(192,255,192);
+    background:rgb(224,255,224);
+}
+
+.other-filters{
+    padding: 0 14px;
+}
+.safe-update-root{
+    text-align: left !important;
+}
+
+.safe-update-root .compare_progress_nextstep img,
+.safe-update-root .compare_progress img{
+    float: left;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    width:100px;
+    border:1px solid #ccc;
+    vertical-align: middle;
+}
+.safe-update-root .compare_progress_nextstep h2,
+.safe-update-root .compare_progress h2 {
+    line-height: 84px;
+}

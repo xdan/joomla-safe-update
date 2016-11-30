@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="component" version="3.0" method="upgrade">
+    <name>com_safe_update</name>
+    <creationDate>2016-11-28</creationDate>
+    <copyright>2016 Valeriy Chupurnov XDSoft.net</copyright>
+    <license>GNU General Public License version 2 or later; see LICENSE.txt</license>
+    <author>Valeriy</author>
+    <authorEmail>chupurnov@gmail.com</authorEmail>
+    <authorUrl>http://xdsoft.net</authorUrl>
+    <version>1.0.4</version>
+    <description>Безопасное обновление Joomla. Перед обновлением, все файлы, котореы незадачливый программист изменил в ядре будут аккуратно сохранены и после обновления, либо будут восстановлены, либо вы будете знать что и где надо поправить.</description>
+
+    <administration>
+        <menu>COM_SAFE_update</menu>
+        <submenu>
+            <menu link="option=com_safe_update&amp;task=run.compare" view="compare" alt="Safe_update/Safeupdates">Compare</menu>
+        </submenu>
+        <files folder="administrator/components/com_safe_update">
+            <filename>access.xml</filename>
+            <filename>config.xml</filename>
+            <filename>controller.php</filename>
+            <filename>index.html</filename>
+            <filename>safe_update.php</filename>
+            <folder>controllers</folder>
+            <folder>assets</folder>
+            <folder>helpers</folder>
+            <folder>views</folder>
+        </files>
+        <languages folder="administrator/language">
+			<language tag="en-GB">en-GB/en-GB.com_safe_update.ini</language>
+			<language tag="en-GB">en-GB/en-GB.com_safe_update.sys.ini</language>
+        </languages>
+    </administration>
+    <config>
+        <fields name="params">
+            <fieldset name="component">
+                <field name="save_history" default="0" />
+            </fieldset>
+        </fields>
+    </config>
+    <plugins>
+        <plugin group="search" plugin="safe_update"/>
+    </plugins>
+</extension>
