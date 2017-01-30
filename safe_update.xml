@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <extension type="component" version="3.0" method="upgrade">
     <name>com_safe_update</name>
-    <creationDate>2016-11-28</creationDate>
+    <creationDate>2017-01-30</creationDate>
     <copyright>2016 Valeriy Chupurnov XDSoft.net</copyright>
     <license>GNU General Public License version 2 or later; see LICENSE.txt</license>
     <author>Valeriy</author>
     <authorEmail>chupurnov@gmail.com</authorEmail>
     <authorUrl>http://xdsoft.net</authorUrl>
-    <version>1.0.5</version>
+    <version>1.0.6</version>
     <description>Безопасное обновление Joomla. Перед обновлением, все файлы, котореы незадачливый программист изменил в ядре будут аккуратно сохранены и после обновления, либо будут восстановлены, либо вы будете знать что и где надо поправить.</description>
 
     <administration>
