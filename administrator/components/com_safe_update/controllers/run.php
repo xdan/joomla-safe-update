@@ -83,10 +83,18 @@ class Safe_updateControllerRun extends JControllerLegacy {
 
         $view = $this->getView('compare', 'html');
 
-        $this->compareandsave();
-        
-        $session = JFactory::getSession();
+        $compare = new CompareHashFiles();
 
+        $compare
+            ->setVersion(JVersion::RELEASE . '.' . JVersion::DEV_LEVEL)
+            ->setJoomlaRoot(JPATH_ROOT)
+            ->startCompare();
+
+        $session = JFactory::getSession();
+        $session->set('diffs', $compare->diff);
+        $session->set('file', $compare->getTempFile(true));
+        
+        
         $view->assign('diffs', $session->get('diffs'));
         $view->assign('file', $session->get('file'));
         $view->assign('returnurl', false);

@@ -46,7 +46,7 @@ if (!count($this->diffs)) { ?>
     foreach ($this->diffs as $path => $diff) { ?>
        <h2><?php echo $path?></h2>
        <hr>
-       <?php echo Diff::toTable($diff);?>
+       <?php echo is_string($diff) ? $diff : Diff::toTable($diff);?>
     <?php }
 }
 ?>

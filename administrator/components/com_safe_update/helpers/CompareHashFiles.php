@@ -6,6 +6,7 @@ class CompareHashFiles {
     public $diff = array();
 
     public $JOOMLA_ROOT = null;
+    public $JSU_ROOT = null;
 
     private function error($message) {
         throw new Exception($message);
@@ -56,7 +57,9 @@ class CompareHashFiles {
         if (!class_exists('ZipArchive')) {
             return $this->error("Для продолжения работы необходим ZipArchive");
         }
+
         $zip = new ZipArchive;
+
         $res = $zip->open($file);
         if ($res === TRUE) {
             $zip->extractTo($hash_folder);
@@ -67,7 +70,7 @@ class CompareHashFiles {
     }
 
     private function readFolder($path, $callback, $callback_folder = false) {
-        if (!file_exists($path)) {
+        if (!file_exists($path) or !is_dir($path)) {
             return;
         }
 
@@ -92,12 +95,37 @@ class CompareHashFiles {
     private function compare() {
         $this->readFolder($this->HASH_ROOT, function ($filepath) {
             $path = str_replace($this->HASH_ROOT, '', $filepath);
-            if (file_exists($this->JOOMLA_ROOT . $path) and file_get_contents($this->JOOMLA_ROOT . $path) !== file_get_contents($filepath)) {
-                // echo '<h2>' . $path . '</h2>';
-                // echo Diff::toTable();
-                $this->diff[$path] = Diff::compareFiles($filepath, $this->JOOMLA_ROOT . $path);
-                $this->changed[] = $this->JOOMLA_ROOT . $path;
-                flush();
+            if (!preg_match('#\.(php|phtml|js|txt|sql|less|css|phar)$#i', $filepath)) {
+                return;
+            }
+            if (file_exists($this->JOOMLA_ROOT . $path)) {
+                if (filesize($this->JOOMLA_ROOT . $path) !== filesize($filepath)) {                    
+                    $this->diff[$path] =  Diff::compareFiles($filepath, $this->JOOMLA_ROOT . $path);
+                    $this->changed[] = $this->JOOMLA_ROOT . $path;
+                    flush();
+                }
+            } else {
+                $this->changed[] = $filepath;
+                $this->diff[$path] = 'На сайте не хватает файла';
+            }
+        });
+        $this->readFolder($this->JOOMLA_ROOT, function ($filepath) {
+            if (strpos($filepath, $this->JSU_ROOT) === 0) {
+                return;
+            }
+            if (!preg_match('#\.(php|phtml|js|txt|sql|less|css|phar)$#i', $filepath)) {
+                return;
+            }
+            $path = str_replace($this->JOOMLA_ROOT, '', $filepath);
+            if (file_exists($this->HASH_ROOT . $path)) {
+                if (filesize($this->HASH_ROOT . $path) !== filesize($filepath)) {                    
+                    $this->diff[$path] = Diff::compareFiles($filepath, $this->HASH_ROOT . $path);
+                    $this->changed[] = $this->HASH_ROOT . $path;
+                    flush();
+                }
+            } else {
+                $this->changed[] = $filepath;
+                $this->diff[$path] = 'На сайте лишний файл';
             }
         });
     }
@@ -127,6 +155,7 @@ class CompareHashFiles {
         $this->ROOT = dirname(__FILE__) . $ds;
         $this->TMP = dirname(__FILE__) . $ds . 'tmp' . $ds;
         $this->HASH_ROOT = $this->ROOT . 'hash' . $ds;
+        $this->JSU_ROOT = realpath($this->ROOT . '..') . $ds;
 
     }
     private function loadHash() {
