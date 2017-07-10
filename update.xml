@@ -20,8 +20,5 @@
             <tag>stable</tag>
         </tags>
         <targetplatform name="joomla" version=".*" />
-        <maintainer/>
-        <maintainerurl/>
-        <client>administrator</client>
     </update>
 </updates>
