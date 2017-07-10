@@ -11,7 +11,7 @@
         <description>Joomla Safe Update</description>
         <element>com_safe_update</element>
         <type>component</type>
-        <version>1.0.8</version>
+        <version>1.0.9</version>
         <infourl title="Joomla Safe Update">http://xdsoft.net/</infourl>
         <downloads>
             <downloadurl type="upgrade" format="zip">https://github.com/xdan/joomla-safe-update/archive/master.zip</downloadurl>
