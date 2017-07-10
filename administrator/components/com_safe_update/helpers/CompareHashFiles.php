@@ -93,9 +93,11 @@ class CompareHashFiles {
     }
     
     private function compare() {
-        $this->readFolder($this->HASH_ROOT, function ($filepath) {
+        $ext = 'php|phtml|js|txt|sql|less|css|phar|bak|bat|exe|zip|ra';
+
+        $this->readFolder($this->HASH_ROOT, function ($filepath) use ($ext){
             $path = str_replace($this->HASH_ROOT, '', $filepath);
-            if (!preg_match('#\.(php|phtml|js|txt|sql|less|css|phar)$#i', $filepath)) {
+            if (!preg_match('#\.(' . $ext . ')$#i', $filepath)) {
                 return;
             }
             if (file_exists($this->JOOMLA_ROOT . $path)) {
@@ -109,11 +111,11 @@ class CompareHashFiles {
                 $this->diff[$path] = 'На сайте не хватает файла';
             }
         });
-        $this->readFolder($this->JOOMLA_ROOT, function ($filepath) {
+        $this->readFolder($this->JOOMLA_ROOT, function ($filepath) use ($ext) {
             if (strpos($filepath, $this->JSU_ROOT) === 0) {
                 return;
             }
-            if (!preg_match('#\.(php|phtml|js|txt|sql|less|css|phar)$#i', $filepath)) {
+            if (!preg_match('#\.(' . $ext . ')$#i', $filepath)) {
                 return;
             }
             $path = str_replace($this->JOOMLA_ROOT, '', $filepath);
