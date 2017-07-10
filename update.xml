@@ -22,6 +22,6 @@
         <targetplatform name="joomla" version=".*" />
         <maintainer/>
         <maintainerurl/>
-        <client>administration</client>
+        <client>administrator</client>
     </update>
 </updates>
