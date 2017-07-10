@@ -104,7 +104,7 @@ class CompareHashFiles {
                     $this->changed[] = $this->JOOMLA_ROOT . $path;
                     flush();
                 }
-            } else if (!preg_match('#^installation\/#i', $filepath)) {
+            } else if (!preg_match('#^installation\/#i', $path)) {
                 $this->changed[] = $filepath;
                 $this->diff[$path] = 'На сайте не хватает файла';
             }
