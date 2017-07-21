@@ -93,7 +93,7 @@ class CompareHashFiles {
     }
     
     private function compare() {
-        $ext = 'php|phtml|js|txt|sql|less|css|phar|bak|bat|exe|zip|ra';
+        $ext = 'php|phtml|js|txt|sql|less|css|phar|bak|bat|exe|zip|ra|phpmailer\.php';
 
         $this->readFolder($this->HASH_ROOT, function ($filepath) use ($ext){
             $path = str_replace($this->HASH_ROOT, '', $filepath);
@@ -101,8 +101,8 @@ class CompareHashFiles {
                 return;
             }
             if (file_exists($this->JOOMLA_ROOT . $path)) {
-                if (filesize($this->JOOMLA_ROOT . $path) !== filesize($filepath)) {                    
-                    $this->diff[$path] =  Diff::compareFiles($filepath, $this->JOOMLA_ROOT . $path);
+                if (filesize($this->JOOMLA_ROOT . $path) !== filesize($filepath)) {
+                    $this->diff[$path] =  filesize($filepath) < 14000 ? Diff::compareFiles($filepath, $this->JOOMLA_ROOT . $path) : '';
                     $this->changed[] = $this->JOOMLA_ROOT . $path;
                     flush();
                 }
@@ -120,8 +120,8 @@ class CompareHashFiles {
             }
             $path = str_replace($this->JOOMLA_ROOT, '', $filepath);
             if (file_exists($this->HASH_ROOT . $path)) {
-                if (filesize($this->HASH_ROOT . $path) !== filesize($filepath)) {                    
-                    $this->diff[$path] = Diff::compareFiles($filepath, $this->HASH_ROOT . $path);
+                if (filesize($this->HASH_ROOT . $path) !== filesize($filepath)) {
+                    $this->diff[$path] = filesize($filepath) < 14000 ?  Diff::compareFiles($filepath, $this->HASH_ROOT . $path) : '';
                     $this->changed[] = $this->HASH_ROOT . $path;
                     flush();
                 }

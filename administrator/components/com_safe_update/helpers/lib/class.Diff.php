@@ -132,7 +132,6 @@ class Diff{
 
       // loop over the columns
       for ($index2 = 1; $index2 <= $length2; $index2 ++){
-
         // store the longest common subsequence length
         if ($sequence1[$index1 + $start - 1]
             == $sequence2[$index2 + $start - 1]){
